@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "621588455732",
+    "firebase_url": "https://alfa-canteen-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "alfa-canteen",
+    "storage_bucket": "alfa-canteen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621588455732:android:3abf9842b7c174f494c561",
+        "android_client_info": {
+          "package_name": "com.example.canteenapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621588455732-6uau8ssiq7e7ko11so2fqjmh5vdmq148.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU29VseUROMoItBU444xcGSy2CmRqaThE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621588455732-6uau8ssiq7e7ko11so2fqjmh5vdmq148.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
