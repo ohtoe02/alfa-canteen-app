@@ -1,4 +1,4 @@
-package com.example.canteenapp.utils
+package com.example.canteenapp.utils.models
 
 data class CategoryData(
     val categoryId:String,

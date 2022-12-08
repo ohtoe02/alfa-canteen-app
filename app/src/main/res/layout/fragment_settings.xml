@@ -6,51 +6,87 @@
     android:layout_height="match_parent"
     tools:context=".ui.order.OrderFragment">
 
+    <include
+        android:id="@+id/settings_hint"
+        layout="@layout/inapp_location_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/textRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
         android:fontFamily="@font/inter_semibold"
         android:text="@string/role_text_placeholder"
         android:textAlignment="center"
         android:textColor="@color/dark_main"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
-
-    <TextView
-        android:id="@+id/text_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addDishButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/dark_main"
+        android:fontFamily="@font/inter_medium"
+        android:letterSpacing="0"
+        android:text="Добавить блюдо"
+        android:textColor="@color/beige_main"
+        android:textSize="20sp"
+        app:cornerRadius="8dp"
+        android:stateListAnimator="@null"
+        android:elevation="0dp"
+        android:textAllCaps="false"
+        android:layout_marginHorizontal="44dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/logoutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="44dp"
+        android:layout_marginBottom="72dp"
         android:backgroundTint="@color/red_dimmed"
+        android:elevation="0dp"
         android:fontFamily="@font/inter_medium"
         android:text="@string/logout_button_text"
         android:textAllCaps="true"
+        android:letterSpacing="0"
         android:textColor="@color/red_error"
         android:textSize="20sp"
+        android:stateListAnimator="@null"
         app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/settingsButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_settings" />
+        app:layout_constraintTop_toBottomOf="@+id/textRole"
+        app:layout_constraintVertical_bias="0.06" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

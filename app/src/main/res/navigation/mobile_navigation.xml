@@ -15,17 +15,55 @@
         android:id="@+id/navigation_menu"
         android:name="com.example.canteenapp.ui.menu.MenuFragment"
         android:label="@string/nav_menu"
-        tools:layout="@layout/fragment_family" />
+        tools:layout="@layout/fragment_family" >
+        <action
+            android:id="@+id/action_navigation_menu_to_menuSecondaryFragment"
+            app:destination="@id/menuSecondaryFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.example.canteenapp.ui.order.OrderFragment"
         android:label="@string/nav_order"
-        tools:layout="@layout/fragment_order" />
+        tools:layout="@layout/fragment_order" >
+        <action
+            android:id="@+id/action_navigation_order_to_menuDrinksFragment"
+            app:destination="@id/menuDrinksFragment" />
+        <action
+            android:id="@+id/action_navigation_order_to_navigation_menu"
+            app:destination="@id/navigation_menu" />
+        <action
+            android:id="@+id/action_navigation_order_to_menuSecondaryFragment"
+            app:destination="@id/menuSecondaryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.canteenapp.ui.settings.SettingsFragment"
         android:label="@string/nav_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/menuSecondaryFragment"
+        android:name="com.example.canteenapp.ui.menu.secondary.MenuSecondaryFragment"
+        android:label="fragment_menu_secondary"
+        tools:layout="@layout/fragment_menu_secondary" >
+        <action
+            android:id="@+id/action_menuSecondaryFragment_to_menuDrinksFragment"
+            app:destination="@id/menuDrinksFragment" />
+        <action
+            android:id="@+id/action_menuSecondaryFragment_to_navigation_menu"
+            app:destination="@id/navigation_menu" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuDrinksFragment"
+        android:name="com.example.canteenapp.ui.menu.drinks.MenuDrinksFragment"
+        android:label="fragment_menu_drinks"
+        tools:layout="@layout/fragment_menu_drinks" >
+        <action
+            android:id="@+id/action_menuDrinksFragment_to_menuSecondaryFragment"
+            app:destination="@id/menuSecondaryFragment" />
+        <action
+            android:id="@+id/action_menuDrinksFragment_to_navigation_order"
+            app:destination="@id/navigation_order" />
+    </fragment>
 
 </navigation>

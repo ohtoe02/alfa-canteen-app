@@ -74,7 +74,7 @@
             android:textCursorDrawable="@null"
             android:textSize="20sp" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/school"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,8 +83,8 @@
             android:drawableStart="@drawable/ic_baseline_school_24"
             android:drawableEnd="@drawable/ic_round_keyboard_arrow_down_24"
             android:drawablePadding="8dp"
-            android:hint="@string/school_placeholder"
             android:inputType="textAutoComplete"
+            android:hint="@string/school_placeholder"
             android:paddingStart="8sp"
             android:paddingTop="12sp"
             android:paddingEnd="24sp"
@@ -103,11 +103,12 @@
             android:backgroundTint="@color/beige_main"
             android:fontFamily="@font/inter_medium"
             android:text="Войти"
+            android:letterSpacing="0"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/dark_main"
+            android:stateListAnimator="@null"
             android:textSize="22sp"
-            android:typeface="normal"
             app:cornerRadius="8dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

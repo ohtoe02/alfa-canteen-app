@@ -1,9 +1,10 @@
-package com.example.canteenapp.utils
+package com.example.canteenapp.utils.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.canteenapp.databinding.CategoryCardBinding
+import com.example.canteenapp.utils.models.CategoryData
 
 class CategoryAdapter(private val list: MutableList<CategoryData>) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {

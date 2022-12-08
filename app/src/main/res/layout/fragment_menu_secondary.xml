@@ -14,7 +14,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.menu.MenuFragment">
+            tools:context=".ui.menu.secondary.MenuSecondaryFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/loader_container"
@@ -75,14 +75,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/menuContainer"
+                android:id="@+id/menuSecondaryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="1"
                 android:animateLayoutChanges="true">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerCategories"
+                    android:id="@+id/recyclerSecondaryCategories"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
@@ -90,7 +90,7 @@
                     android:paddingStart="24dp"
                     android:scrollbarSize="0dp"
                     android:scrollbars="horizontal"
-                    app:layout_constraintBottom_toTopOf="@+id/menuCategoriesText"
+                    app:layout_constraintBottom_toTopOf="@+id/menuSecondaryCategoriesText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -101,7 +101,7 @@
                 <RelativeLayout
                     android:id="@+id/relativeLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
                     android:layout_marginTop="360dp"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="8dp"
@@ -112,7 +112,7 @@
                     app:layout_constraintVertical_bias="0.0">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerDishes"
+                        android:id="@+id/recyclerSecondaryDishes"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scrollbarSize="0dp"
@@ -121,13 +121,12 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/menuCategoriesText"
+                    android:id="@+id/menuSecondaryCategoriesText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Меню"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textColor="@color/dark_main"
@@ -138,7 +137,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0"
-                    tools:text="Меню" />
+                    android:text="Меню" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

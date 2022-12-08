@@ -13,4 +13,5 @@
     <color name="gray_text">#53545D</color>
     <color name="red_error">#FF5D5D</color>
     <color name="red_dimmed">#FFE2E2</color>
+    <color name="card_default_color">#F9FBFC</color>
 </resources>

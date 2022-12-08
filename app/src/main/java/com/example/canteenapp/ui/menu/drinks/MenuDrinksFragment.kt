@@ -1,4 +1,4 @@
-package com.example.canteenapp.ui.menu
+package com.example.canteenapp.ui.menu.drinks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.canteenapp.R
-import com.example.canteenapp.databinding.FragmentMenuBinding
+import com.example.canteenapp.databinding.FragmentMenuDrinksBinding
 import com.example.canteenapp.utils.adapters.CategoryAdapter
 import com.example.canteenapp.utils.models.CategoryData
 import com.example.canteenapp.utils.adapters.DishAdapter
@@ -22,9 +22,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
+class MenuDrinksFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
 
-    private var _binding: FragmentMenuBinding? = null
+    private var _binding: FragmentMenuDrinksBinding? = null
     private lateinit var databaseMenuReference: DatabaseReference
 
     private lateinit var dishAdapter: DishAdapter
@@ -44,22 +44,13 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMenuBinding.inflate(inflater, container, false)
+        _binding = FragmentMenuDrinksBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val menuNavigation = binding.menuNavigation
 
-        currentCart = arguments?.getSerializable("currentCart") as HashMap<String, DishData?>?
-
-        if (currentCart == null) {
-            currentCart = HashMap()
-            currentCart!!["mainDish"] = null
-            currentCart!!["secondDish"] = null
-            currentCart!!["drink"] = null
-        }
-
         menuNavigation.categoryDescription.text = "Заказать питание"
-        menuNavigation.actionDescription.text = "Основное блюдо"
+        menuNavigation.actionDescription.text = "Напитки"
 
         return root
     }
@@ -67,13 +58,15 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        currentCart = arguments?.getSerializable("currentCart") as HashMap<String, DishData?>?
+
         init()
 
         getDataFromFirebase()
     }
 
     private fun getDataFromFirebase() {
-        databaseMenuReference.child("categories/mainDishes")
+        databaseMenuReference.child("categories/drinks")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     categoryList.clear()
@@ -99,7 +92,7 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
                 }
             })
 
-        databaseMenuReference.child("dishes/mainDishes")
+        databaseMenuReference.child("dishes/drinks")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     dishList.clear()
@@ -113,7 +106,7 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
 
                             var isActive = false
 
-                            if (currentCart?.get("mainDish") != null && currentCart!!["mainDish"]?.id == it) {
+                            if (currentCart?.get("drink") != null && currentCart!!["drink"]?.id == it) {
                                 isActive = true
                             }
 
@@ -127,7 +120,7 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
 
                     dishAdapter.notifyDataSetChanged()
 
-                    binding.menuContainer.animate().alpha(1.0f).duration = 300
+                    binding.menuDrinksContainer.animate().alpha(1.0f).duration = 300
                     binding.loaderContainer.animate().alpha(0.0f)
                 }
 
@@ -143,32 +136,36 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
             Firebase.database("https://alfa-canteen-default-rtdb.europe-west1.firebasedatabase.app/")
                 .getReference("schools/school1/menu")
 
-        binding.recyclerDishes.setHasFixedSize(true)
-        binding.recyclerDishes.layoutManager = GridLayoutManager(context, 2)
+        binding.recyclerDrinksDishes.setHasFixedSize(true)
+        binding.recyclerDrinksDishes.layoutManager = GridLayoutManager(context, 2)
 
         dishList = mutableListOf()
         dishAdapter = DishAdapter(dishList)
         dishAdapter.setListener(this)
+        binding.recyclerDrinksDishes.adapter = dishAdapter
 
-        binding.recyclerDishes.adapter = dishAdapter
-
-        binding.recyclerCategories.setHasFixedSize(true)
-        binding.recyclerCategories.layoutManager =
+        binding.recyclerDrinksCategories.setHasFixedSize(true)
+        binding.recyclerDrinksCategories.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
 
         categoryList = mutableListOf()
         categoryAdapter = CategoryAdapter(categoryList)
-        binding.recyclerCategories.adapter = categoryAdapter
+        binding.recyclerDrinksCategories.adapter = categoryAdapter
 
-        binding.menuNavigation.backwardsArrow.setImageDrawable(resources.getDrawable(R.drawable.ic_round_arrow_back_ios_24_disabled))
+        binding.menuNavigation.forwardArrow.setImageDrawable(resources.getDrawable(R.drawable.ic_round_check_24))
+
+        val bundle = Bundle()
+
+        bundle.putSerializable("currentCart", currentCart)
 
         binding.menuNavigation.forwardArrow.setOnClickListener {
-            val bundle = Bundle()
+            findNavController().navigate(R.id.action_menuDrinksFragment_to_navigation_order, bundle)
+        }
 
-            bundle.putSerializable("currentCart", currentCart)
-
+        binding.menuNavigation.backwardsArrow.setOnClickListener {
             findNavController().navigate(
-                R.id.action_navigation_menu_to_menuSecondaryFragment,
+                R.id.action_menuDrinksFragment_to_menuSecondaryFragment,
                 bundle
             )
         }
@@ -184,7 +181,7 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
         val currDish = dishList.find { item -> item.id === dishData.id }!!
         currDish.isActive = !currDish.isActive
 
-        val prevPickedDishId = currentCart?.get("mainDish")?.id
+        val prevPickedDishId = currentCart?.get("drink")?.id
 
         if (currDish.id != prevPickedDishId && prevPickedDishId != null) {
             dishList[prevPickedDishId.toInt()].isActive = false
@@ -192,7 +189,7 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
 
         dishAdapter.notifyDataSetChanged()
         currentCart?.set(
-            "mainDish",
+            "drink",
             if (prevPickedDishId != dishData.id) dishData else null
         )
     }
