@@ -55,4 +55,28 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
+
+    <style name="AccentButton" parent="">
+        <item name="colorButtonNormal">@color/input_stroke_color</item>
+        <item name="android:buttonCornerRadius">8dp</item>
+        <item name="colorAccent">@color/dark_main</item>
+        <item name="colorPrimary">@color/dark_main</item>
+    </style>
+
+    <style name="SpinnerMainStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textColor">@color/dark_main</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="cornerRadius">8dp</item>
+
+        <item name="android:popupBackground">@drawable/spinner_dropdown_bg</item>
+    </style>
+
+    <style name="ZoomAnimation" parent="" >
+        <item name="android:windowEnterAnimation">@anim/zoomin</item>
+        <item name="android:windowExitAnimation">@anim/zoomout</item>
+    </style>
 </resources>

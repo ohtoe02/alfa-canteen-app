@@ -9,4 +9,6 @@
     <string name="school_placeholder">Школа</string>
     <string name="logout_button_text">Выйти</string>
     <string name="role_text_placeholder">role</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

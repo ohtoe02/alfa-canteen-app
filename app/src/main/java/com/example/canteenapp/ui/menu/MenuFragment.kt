@@ -1,5 +1,7 @@
 package com.example.canteenapp.ui.menu
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.example.canteenapp.utils.adapters.CategoryAdapter
 import com.example.canteenapp.utils.models.CategoryData
 import com.example.canteenapp.utils.adapters.DishAdapter
 import com.example.canteenapp.utils.models.DishData
+import com.example.canteenapp.utils.models.KidData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -27,6 +30,10 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
     private var _binding: FragmentMenuBinding? = null
     private lateinit var databaseMenuReference: DatabaseReference
 
+    private val sharedPrefsId: String = "sharedPrefs"
+    private lateinit var sharedPreferences: SharedPreferences
+    private var currentSchool: String? = null
+
     private lateinit var dishAdapter: DishAdapter
     private lateinit var dishList: MutableList<DishData>
 
@@ -34,6 +41,8 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
     private lateinit var categoryList: MutableList<CategoryData>
 
     private var currentCart: HashMap<String, DishData?>? = null
+    private var currentKid: KidData? = null
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -48,8 +57,11 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
         val root: View = binding.root
 
         val menuNavigation = binding.menuNavigation
+        findNavController().backQueue.forEach {item -> println("${item.destination.label} ///")}
+
 
         currentCart = arguments?.getSerializable("currentCart") as HashMap<String, DishData?>?
+        currentKid = arguments?.getSerializable("currentKid") as KidData?
 
         if (currentCart == null) {
             currentCart = HashMap()
@@ -70,6 +82,9 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
         init()
 
         getDataFromFirebase()
+
+        binding.menuContainer.animate().alpha(1.0f).duration = 300
+        binding.loaderContainer.animate().alpha(0.0f)
     }
 
     private fun getDataFromFirebase() {
@@ -126,9 +141,6 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
                     }
 
                     dishAdapter.notifyDataSetChanged()
-
-                    binding.menuContainer.animate().alpha(1.0f).duration = 300
-                    binding.loaderContainer.animate().alpha(0.0f)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -139,9 +151,14 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
     }
 
     private fun init() {
+        sharedPreferences = this.requireActivity().getSharedPreferences(sharedPrefsId,
+            Context.MODE_PRIVATE
+        )
+        currentSchool = sharedPreferences.getString("school", "")
+
         databaseMenuReference =
             Firebase.database("https://alfa-canteen-default-rtdb.europe-west1.firebasedatabase.app/")
-                .getReference("schools/school1/menu")
+                .getReference("schools/$currentSchool/menu")
 
         binding.recyclerDishes.setHasFixedSize(true)
         binding.recyclerDishes.layoutManager = GridLayoutManager(context, 2)
@@ -166,13 +183,14 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
             val bundle = Bundle()
 
             bundle.putSerializable("currentCart", currentCart)
+            bundle.putSerializable("currentKid", currentKid)
 
+//            clearBackStack(findNavController())
             findNavController().navigate(
                 R.id.action_navigation_menu_to_menuSecondaryFragment,
                 bundle
             )
         }
-
     }
 
     override fun onDestroyView() {
@@ -182,18 +200,22 @@ class MenuFragment : Fragment(), DishAdapter.DishAdapterClicksInterface {
 
     override fun onCardClicked(dishData: DishData) {
         val currDish = dishList.find { item -> item.id === dishData.id }!!
+        val currDishIndex = dishList.indexOf(currDish)
         currDish.isActive = !currDish.isActive
 
-        val prevPickedDishId = currentCart?.get("mainDish")?.id
+        val prevPickedDish = currentCart?.get("mainDish")
+        val prevPickedDishIndex = dishList.indexOf(prevPickedDish)
 
-        if (currDish.id != prevPickedDishId && prevPickedDishId != null) {
-            dishList[prevPickedDishId.toInt()].isActive = false
+        if (prevPickedDish != null && currDishIndex != prevPickedDishIndex) {
+            dishList[prevPickedDishIndex].isActive = false
+            dishAdapter.notifyItemChanged(prevPickedDishIndex)
         }
 
-        dishAdapter.notifyDataSetChanged()
+        dishAdapter.notifyItemChanged(currDishIndex)
+
         currentCart?.set(
             "mainDish",
-            if (prevPickedDishId != dishData.id) dishData else null
+            if (prevPickedDishIndex != currDishIndex) dishData else null
         )
     }
 }

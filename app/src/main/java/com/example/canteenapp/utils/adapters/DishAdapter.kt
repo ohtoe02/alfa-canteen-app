@@ -49,8 +49,6 @@ class DishAdapter(private val list: MutableList<DishData>) :
         }
     }
 
-
-
     override fun getItemCount(): Int {
         return list.size
     }

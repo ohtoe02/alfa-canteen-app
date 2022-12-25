@@ -37,7 +37,6 @@ class AddDishDialogFragment : DialogFragment() {
         "Напитки" to "drinks"
     )
 
-
     fun setListener(listener: OnDialogNextBtnClickListener) {
         this.listener = listener
     }
@@ -61,7 +60,6 @@ class AddDishDialogFragment : DialogFragment() {
     ): View {
         _binding = FragmentAddDishDialogBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         init()
 
         binding.imageButton.setOnClickListener {

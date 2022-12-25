@@ -9,8 +9,8 @@
 
     <ImageButton
         android:id="@+id/backwardsArrow"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/ic_round_arrow_back_ios_24"
         android:contentDescription="back"
@@ -80,10 +80,12 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/addImageOverlay"
                         android:layout_width="300dp"
-                        android:layout_height="160dp">
+                        android:layout_height="160dp"
+                        >
 
                         <ImageView
                             android:id="@+id/addImageIcon"
+                            android:elevation="8dp"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_marginTop="36dp"
@@ -97,6 +99,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="28dp"
+                            android:elevation="8dp"
 
                             android:fontFamily="@font/inter_medium"
                             android:text="Добавить фото"
@@ -126,7 +129,7 @@
                         android:id="@+id/dishTitle"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/input_background"
                         android:fontFamily="@font/inter_medium"
                         android:hint="Название блюда"
                         android:inputType="text"
@@ -158,7 +161,7 @@
                             android:id="@+id/dishPrice"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
-                            android:background="@drawable/custom_edittext"
+                            android:background="@drawable/input_background"
                             android:fontFamily="@font/inter_medium"
                             android:hint="Цена"
                             android:inputType="number"
@@ -187,7 +190,7 @@
                             android:id="@+id/dishWeight"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
-                            android:background="@drawable/custom_edittext"
+                            android:background="@drawable/input_background"
                             android:fontFamily="@font/inter_medium"
                             android:hint="Вес"
                             android:inputType="number"
@@ -213,7 +216,7 @@
                         android:id="@+id/dishCategory"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:background="@drawable/custom_edittext"
+                        android:background="@drawable/input_background"
                         android:fontFamily="@font/inter_medium"
                         android:hint="Категория"
                         android:inputType="text"
@@ -223,18 +226,18 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <RelativeLayout
-                    android:id="@+id/relativeLayout2"
+                    android:id="@+id/dishClassWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/custom_edittext"
+                    android:background="@drawable/input_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/categoryInputLayout">
 
                     <Spinner
                         android:id="@+id/dishClassPicker"
-                        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                        style="@style/SpinnerMainStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="опысание"
@@ -255,11 +258,13 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             android:backgroundTint="@color/dark_main"
+            android:theme="@style/AccentButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:elevation="0dp"
             android:fontFamily="@font/inter_medium"
             android:letterSpacing="0"
             android:stateListAnimator="@null"
-            android:text="Submit"
+            android:text="Добавить"
             android:textAllCaps="false"
             android:textColor="@color/beige_main"
             android:textSize="20sp"

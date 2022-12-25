@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/navigation_family"
         android:enabled="true"
         android:icon="@drawable/children"
-        android:title="@string/nav_family" />
+        android:title="@string/nav_family"
+        app:showAsAction="ifRoom"
+        />
 
     <item
         android:id="@+id/navigation_menu"
         android:enabled="true"
         android:icon="@drawable/food_bar"
-        android:title="@string/nav_menu" />
+        android:title="@string/nav_menu"
+        app:showAsAction="ifRoom"
+        />
 
-<!--    <item-->
-<!--        android:id="@+id/navigation_order"-->
-<!--        android:icon="@drawable/list_view"-->
-<!--        android:title="@string/nav_order" />-->
+    <item
+        android:id="@+id/placeholder"
+        android:title=""
+        android:enabled="false"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/navigation_order"
+        android:icon="@drawable/list_view"
+        android:title="@string/nav_order"
+        app:showAsAction="ifRoom"
+        />
 
     <item
         android:id="@+id/navigation_settings"
         android:enabled="true"
         android:icon="@drawable/settings"
-        android:title="@string/nav_settings" />
+        android:title="@string/nav_settings"
+        app:showAsAction="ifRoom"
+        />
 
 </menu>

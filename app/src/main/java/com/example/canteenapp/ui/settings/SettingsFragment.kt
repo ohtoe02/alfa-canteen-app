@@ -11,8 +11,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavigatorProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.canteenapp.LoginActivity
+import com.example.canteenapp.R
 import com.example.canteenapp.databinding.FragmentAddDishDialogBinding
 import com.example.canteenapp.databinding.FragmentSettingsBinding
 import com.example.canteenapp.ui.dialogs.AddDishDialogFragment
@@ -24,7 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class SettingsFragment : Fragment(), AddDishDialogFragment.OnDialogNextBtnClickListener {
+class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
 
@@ -47,6 +50,8 @@ class SettingsFragment : Fragment(), AddDishDialogFragment.OnDialogNextBtnClickL
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        findNavController().backQueue.forEach {item -> println("${item.destination.label} ///")}
+
 
         binding.settingsHint.actionTitle.text = "Настройки"
         binding.settingsHint.actionCategoryTitle.text = "и информация"
@@ -67,7 +72,7 @@ class SettingsFragment : Fragment(), AddDishDialogFragment.OnDialogNextBtnClickL
 
         init(view)
 
-        showUserData()
+//        showUserData()
     }
 
     override fun onDestroyView() {
@@ -81,6 +86,7 @@ class SettingsFragment : Fragment(), AddDishDialogFragment.OnDialogNextBtnClickL
         storageRef = FirebaseStorage.getInstance("gs://alfa-canteen.appspot.com").reference.child("Images/$currentSchool")
         firebaseDatabase = Firebase.database("https://alfa-canteen-default-rtdb.europe-west1.firebasedatabase.app/").reference.child("schools/$currentSchool/menu/dishes")
 
+
         val settingsList = listOf("Основные", "Уведомления", "Помощь", "О приложении")
 
         val settingsAdapter = SettingsAdapter(settingsList as MutableList<String>)
@@ -90,17 +96,14 @@ class SettingsFragment : Fragment(), AddDishDialogFragment.OnDialogNextBtnClickL
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.settingsButtons.adapter = settingsAdapter
 
-        binding.addDishButton.setOnClickListener {
-            if (frag != null) {
-                childFragmentManager.beginTransaction().remove(frag!!).commit()
-            }
-            frag = AddDishDialogFragment()
-            frag!!.setListener(this)
-
-            frag!!.show(
-                childFragmentManager,
-                AddDishDialogFragment.TAG
+        binding.submitRequestButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_navigation_settings_to_addDishFragment
             )
+        }
+
+        if (sharedPreferences.getString("role", "") != "admin" && sharedPreferences.getString("role", "") != "cook") {
+            binding.submitRequestButton.visibility = View.INVISIBLE
         }
     }
 
@@ -111,53 +114,9 @@ class SettingsFragment : Fragment(), AddDishDialogFragment.OnDialogNextBtnClickL
         editor.apply()
     }
 
-    private fun showUserData() {
-        val roleTextView: TextView = binding.textRole
-        roleTextView.text =
-            String.format("Ваша роль: %s", sharedPreferences.getString("role", "not-found"))
-    }
-
-    private fun uploadImage(dishKey: DatabaseReference, imageUri: Uri?) {
-        storageRef = storageRef.child(System.currentTimeMillis().toString())
-        imageUri?.let {
-            println(storageRef)
-            storageRef.putFile(it).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    storageRef.downloadUrl.addOnSuccessListener { uri ->
-                        dishKey.child("picture").setValue(uri.toString())
-                        Toast.makeText(context, "Uploaded", Toast.LENGTH_LONG).show()
-                    }
-                } else {
-                    Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
-
-                }
-            }
-        }
-    }
-
-
-
-    override fun saveDish(dish: DishData?, dishEdit: FragmentAddDishDialogBinding, imageUri: Uri?, dishClass: String) {
-
-        val dishKey = firebaseDatabase.child(dishClass).push()
-        dish?.id = dishKey.key.toString()
-        uploadImage(dishKey, imageUri)
-        dishKey.setValue(dish).addOnCompleteListener {
-            if (it.isSuccessful) {
-                Toast.makeText(context, "Task Added Successfully", Toast.LENGTH_SHORT).show()
-                dishEdit.dishTitle.text = null
-                dishEdit.dishCategory.text = null
-                dishEdit.dishPrice.text = null
-                dishEdit.dishWeight.text = null
-
-            } else {
-                Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
-            }
-        }
-        frag!!.dismiss()
-    }
-
-    override fun updateDish(dishData: DishData) {
-        TODO("Not yet implemented")
-    }
+//    private fun showUserData() {
+//        val roleTextView: TextView = binding.textRole
+//        roleTextView.text =
+//            String.format("Ваша роль: %s", sharedPreferences.getString("role", "not-found"))
+//    }
 }

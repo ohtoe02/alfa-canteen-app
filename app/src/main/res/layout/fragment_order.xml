@@ -101,13 +101,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondaryDishCheckout" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Кто будет питаться:"
+        android:layout_marginStart="4dp"
+        android:textSize="20sp"
+        android:textColor="@color/dark_main"
+        android:fontFamily="@font/inter_medium"
+        app:layout_constraintBottom_toTopOf="@+id/dishClassWrapper"
+        app:layout_constraintStart_toStartOf="@+id/dishClassWrapper" />
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/dishClassWrapper"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/spinner_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +125,7 @@
 
         <Spinner
             android:id="@+id/childPicker"
-            style="@style/Widget.AppCompat.DropDownItem.Spinner"
+            style="@style/SpinnerMainStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="0dp" />
@@ -131,7 +141,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/dishClassWrapper"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

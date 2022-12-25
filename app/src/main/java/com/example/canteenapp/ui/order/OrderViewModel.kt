@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class OrderViewModel : ViewModel() {
-
     private val _text = MutableLiveData<String>().apply {
         value = "Тут будет заказ"
     }

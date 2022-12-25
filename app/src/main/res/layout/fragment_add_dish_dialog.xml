@@ -207,7 +207,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <RelativeLayout
-                    android:id="@+id/relativeLayout2"
+                    android:id="@+id/dishClassWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="8dp"

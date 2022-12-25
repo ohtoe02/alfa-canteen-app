@@ -23,14 +23,32 @@
         layout="@layout/dark_button"
         android:layout_width="match_parent"
         android:layout_height="66dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginHorizontal="40dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/family_hint"
         app:layout_constraintVertical_bias="0.0" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginVertical="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/addChildButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goToSettingsButton">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/kidsRecycler"
+            android:requiresFadingEdge="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/kid_list_item"
+            />
+    </FrameLayout>
 
     <include
         android:id="@+id/addChildButton"
@@ -45,5 +63,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/goToSettingsButton"
         app:layout_constraintVertical_bias="1.0" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

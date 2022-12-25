@@ -8,6 +8,6 @@ data class DishData(
     val title: String,
     val category: String,
     val price: String,
-    val picture: String,
+    var picture: String,
     var isActive: Boolean = false
     ) : Serializable

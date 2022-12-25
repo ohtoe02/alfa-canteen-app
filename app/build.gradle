@@ -10,6 +10,10 @@ android {
     namespace 'com.example.canteenapp'
     compileSdk 33
 
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+
     defaultConfig {
         applicationId "com.example.canteenapp"
         minSdk 21
@@ -50,11 +54,13 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
     implementation 'com.google.firebase:firebase-storage:20.1.0'
+    implementation 'androidx.databinding:databinding-compiler-common:7.3.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-
-    implementation 'com.sothree.slidinguppanel:library:3.4.0'
-
-    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'io.github.cymchad:BaseRecyclerViewAdapterHelper:4.0.0-beta04'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation 'id.zelory:compressor:3.0.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.github.skydoves:powerspinner:1.2.4"
 }

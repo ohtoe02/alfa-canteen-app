@@ -13,6 +13,8 @@
     android:letterSpacing="0"
     android:textAllCaps="false"
     android:textSize="22sp"
+    android:insetTop="0dp"
+    android:insetBottom="0dp"
     app:cornerRadius="8dp"
     >
 </Button>

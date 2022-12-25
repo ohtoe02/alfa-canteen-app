@@ -13,7 +13,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.canteenapp.databinding.ActivityLoginBinding
+import com.example.canteenapp.utils.createErrorSnack
 import com.example.canteenapp.utils.createSnack
+import com.example.canteenapp.utils.createSuccessfulSnack
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -103,52 +105,27 @@ class LoginActivity : AppCompatActivity() {
                             login,
                             it.child("role").value as String,
                             schoolId,
-                            it.child("family/surname").value as String
+                            it.child("family/surname").value as String,
+                            (it.child("classId").value ?: "") as String
                         )
                         val intent = Intent(this, MainActivity::class.java).putExtra("auth", "yes")
                         startActivity(intent)
                         finish()
-                        createSnack(view, "Успешный вход!",
-                            Snackbar.LENGTH_LONG,
-                            Color.parseColor("#52FF4F"),
-                            Color.parseColor("#D8FFDC")
-                        )
+                        createSuccessfulSnack(view, "Успешный вход!")
                     }
 
                 } else {
-                    createSnack(view, "Пользователь не найден",
-                        Snackbar.LENGTH_LONG,
-                        Color.parseColor("#FFE2E2"),
-                        Color.parseColor("#FF5D5D")
-                    )
+                    createErrorSnack(view, "Пользователь не найден")
                 }
             }.addOnFailureListener {
-                createSnack(view, "Потеряна связь",
-                    Snackbar.LENGTH_LONG,
-                    Color.parseColor("#FFE2E2"),
-                    Color.parseColor("#FF5D5D")
-                )
+               createErrorSnack(view, "Потеряна связь")
             }
         } else {
-            createSnack(view, "Пользователь не найден",
-                Snackbar.LENGTH_LONG,
-                Color.parseColor("#FFE2E2"),
-                Color.parseColor("#FF5D5D")
-            )
-//            Toast.makeText(this, "Login Failed!", Toast.LENGTH_SHORT).show()
+            createErrorSnack(view, "Пssssss")
         }
     }
 
-//    private fun createSnack(text: String, length: Int, bgColor: Int, textColor: Int) {
-//        val snack = Snackbar
-//            .make(view, text, length)
-//            .setBackgroundTint(bgColor)
-//            .setTextColor(textColor)
-//
-//        snack.show()
-//    }
-
-    private fun setAuthenticationState(login: String, role: String, school: String, surname: String) {
+    private fun setAuthenticationState(login: String, role: String, school: String, surname: String, classID: String) {
         val sharedPreferences: SharedPreferences = getSharedPreferences(sharedPrefs, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
@@ -157,6 +134,10 @@ class LoginActivity : AppCompatActivity() {
         editor.putString("school", school)
         editor.putString("familySurname", surname)
         editor.putBoolean("isAuthenticated", true)
+
+        if (role == "teacher") {
+            editor.putString("classID", classID)
+        }
 
         editor.apply()
     }

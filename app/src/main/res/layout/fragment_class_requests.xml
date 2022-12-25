@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.canteen.requests.RequestsFragment">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
+        android:text="Отметьте отсутствующих"
+        android:textColor="@color/dark_main"
+        android:textSize="22sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hint" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/childrenCounter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <ListView
+            android:id="@+id/checkboxList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/kid_checkbox"
+            android:scrollbarSize="0dp"
+            android:divider="@android:color/transparent"
+            android:fadingEdge="vertical"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdgeLength="2dp"
+            >
+
+        </ListView>
+    </FrameLayout>
+
+    <include
+        android:id="@+id/hint"
+        layout="@layout/inapp_location_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/childrenCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="В школе n из n детей"
+        android:fontFamily="@font/inter_medium"
+        android:textColor="@color/dark_main"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/submitRequestButton"
+        app:layout_constraintEnd_toEndOf="@+id/submitRequestButton"
+        app:layout_constraintStart_toStartOf="@+id/submitRequestButton" />
+
+    <Button
+        android:id="@+id/submitRequestButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="44dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/dark_main"
+        android:elevation="0dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:fontFamily="@font/inter_medium"
+        android:letterSpacing="0"
+        android:stateListAnimator="@null"
+        android:text="Отправить заявку"
+        android:textAllCaps="false"
+        android:textColor="@color/beige_main"
+        android:textSize="22sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
